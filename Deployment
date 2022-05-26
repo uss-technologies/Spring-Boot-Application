@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: springdeployment
-  namespace: sonuns
+  namespace: springns
 spec:
   replicas: 2
   strategy:
@@ -27,15 +27,15 @@ spec:
         - name: MONGO_DB_HOSTNAME
           value: mongosvc
         - name: MONGO_DB_USERNAME
-          value: sonudb
+          value: mongodb
         - name: MONGO_DB_PASSWORD
-          value: sonudb123
+          value: mongodb123
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: springsvc
-  namespace: sonuns
+  namespace: springns
 spec:
   type: NodePort
   selector:
@@ -49,7 +49,7 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: mongors
-  namespace: sonuns
+  namespace: springns
 spec:
   selector:
     matchLabels:
@@ -66,15 +66,15 @@ spec:
         - containerPort: 27017
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
-          value: sonudb
+          value: mongodb
         - name: MONGO_INITDB_ROOT_PASSWORD
-          value: sonudb123
+          value: mongodb123
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mongosvc
-  namespace: sonuns
+  namespace: springns
 spec:
   type: ClusterIP
   selector:
